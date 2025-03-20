@@ -14,7 +14,13 @@ source_data = spark.read \
     .options(keyspace="<keyspace_name>", table="<table_name>") \
     .load()
 
-# Example of selecting specific columns
+# Example of selecting specific columns, In this example I created below table in cassandra
+# CREATE TABLE customer (
+#    num text,
+#    uuid text,
+#    document blob,
+#    PRIMARY KEY (num, uuid)
+#    ) 
 from pyspark.sql.functions import col
 rearranged_data = source_data.select(
     col("num"),
