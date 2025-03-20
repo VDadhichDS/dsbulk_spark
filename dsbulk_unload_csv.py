@@ -2,8 +2,8 @@ from pyspark.sql import SparkSession
 # Create a Spark session with Cassandra configuration
 spark = SparkSession.builder \
     .appName("CassandraDataLoader") \
-    .config("spark.cassandra.connection.host", "10.166.64.182") \
-    .config("spark.cassandra.connection.port", "9042") \
+    .config("spark.cassandra.connection.host", "<hostname>") \
+    .config("spark.cassandra.connection.port", "<port>") \
     .config('spark.jars.packages', 'com.datastax.spark:spark-cassandra-connector_2.12:3.5.1') \
     .config('spark.sql.extensions', 'com.datastax.spark.connector.CassandraSparkExtensions') \
     .getOrCreate()
@@ -11,7 +11,7 @@ spark = SparkSession.builder \
 # You can then load data from Cassandra as shown below:
 source_data = spark.read \
     .format("org.apache.spark.sql.cassandra") \
-    .options(keyspace="vikas", table="customer") \
+    .options(keyspace="<keyspace_name>", table="<table_name>") \
     .load()
 
 # Example of selecting specific columns
