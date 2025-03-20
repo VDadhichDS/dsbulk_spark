@@ -76,10 +76,24 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
   FutureWarning
 ```
 
+### Code explanation
+
+Import SparkSession: The first step is to import the SparkSession class, which is used to initialize and manage Spark operations.
+Create Spark Session: The SparkSession is configured to connect to Cassandra using specific configurations like host, port, and necessary packages.
+Reading from Cassandra: The script reads data from the specified Cassandra keyspace and table.
+Selecting Columns: It selects only the num and uuid columns from the retrieved data using the col() function.
+Save to CSV: It writes the selected data into a CSV file, with the option to include headers.
+Optional Coalescing: The commented-out code would combine all the output into a single CSV file, useful for smaller datasets.
+Stop Spark Session: The session is stopped to free up resources after the operation completes.
+Notes:
+Ensure you replace <hostname>, <port>, <keyspace_name>, and <table_name> with actual values for your Cassandra setup.
+The .coalesce(1) option should be used with caution, as it can cause performance issues with large datasets by trying to combine everything into one file.
+
 ## Troubleshooting
 
 - **WARN NativeCodeLoader**: This warning can typically be ignored unless you're facing issues related to native Hadoop libraries.
 - **Python 3.6 support deprecated**: The script runs on Python 3.6, but it will be deprecated in future Spark releases. It's recommended to upgrade to Python 3.7+ if possible.
+
 
 ## License
 
