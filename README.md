@@ -76,18 +76,28 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
   FutureWarning
 ```
 
-### Code explanation
+### Code Explanation
 
-Import SparkSession: The first step is to import the SparkSession class, which is used to initialize and manage Spark operations.
-Create Spark Session: The SparkSession is configured to connect to Cassandra using specific configurations like host, port, and necessary packages.
-Reading from Cassandra: The script reads data from the specified Cassandra keyspace and table.
-Selecting Columns: It selects only the num and uuid columns from the retrieved data using the col() function.
-Save to CSV: It writes the selected data into a CSV file, with the option to include headers.
-Optional Coalescing: The commented-out code would combine all the output into a single CSV file, useful for smaller datasets.
-Stop Spark Session: The session is stopped to free up resources after the operation completes.
-Notes:
-Ensure you replace <hostname>, <port>, <keyspace_name>, and <table_name> with actual values for your Cassandra setup.
-The .coalesce(1) option should be used with caution, as it can cause performance issues with large datasets by trying to combine everything into one file.
+1. Import SparkSession
+The first step is to import the SparkSession class, which is used to initialize and manage Spark operations. This is essential for starting the Spark application and accessing various Spark functionalities.
+
+2. Create Spark Session
+The SparkSession is configured to connect to Cassandra using specific configurations. This includes setting the host, port, and necessary packages required to integrate Spark with Cassandra. The session is then created or fetched if it already exists.
+
+3. Reading from Cassandra
+The script reads data from a specified Cassandra keyspace and table. This is done using the .format("org.apache.spark.sql.cassandra") method, with the appropriate keyspace and table options passed in.
+
+4. Selecting Columns
+The script selects specific columns (num and uuid) from the loaded data using the col() function. This helps in filtering only the required data for further processing or storage.
+
+5. Save to CSV
+The selected data is written to a CSV file. The .option("header", "true") ensures that the CSV file includes a header row, making the output more readable.
+
+6. Optional Coalescing
+The commented-out line in the script can be used to combine all the output into a single CSV file using .coalesce(1). This is useful for smaller datasets but should be avoided for large datasets as it can lead to performance issues.
+
+7. Stop Spark Session
+Once the operation is complete, the Spark session is stopped using spark.stop(). This is crucial to free up resources and avoid memory leaks.
 
 ## Troubleshooting
 
